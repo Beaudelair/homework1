@@ -11,20 +11,17 @@ data(iris)
 tibble.iris <- as_tibble(iris)
 
 #number of columns
-ncol(tibble.iris)
 
-#datatype of columns
+kable(ncol(tibble.iris), col.names = "Number of columns in the iris Data set",
+      align= 'l')
 
-class(tibble.iris$Sepal.Length)
-class(tibble.iris$Sepal.Width)
-class(tibble.iris$Petal.Length)
-class(tibble.iris$Petal.Width)
-class(tibble.iris$Species)
+#class of columns
 
+column_class<- tibble.iris %>% 
+    summarise_all(class) %>% 
+    gather(variable, class)
 
-
-
-
+kable(column_class)
 
 
 ```
@@ -33,13 +30,19 @@ __2.b__ Print out only species and its length of a sepal in ascending order. Pri
 
 ```{r, message = FALSE}
 
-tibble.iris %>% 
+S_L_Descending<-tibble.iris %>% 
   arrange(desc(Sepal.Length)) %>% 
   select(Sepal.Length, Species)
 
-tibble.iris %>% 
+kable(head(S_L_Descending), align= 'l')
+
+
+
+S_L_Ascending <- tibble.iris %>% 
   arrange(Sepal.Length) %>% 
   select(Sepal.Length, Species)
+
+kable(head(S_L_Ascending), align= 'l')
 
 ```
 
@@ -54,7 +57,7 @@ iris_species <- tibble.iris %>%
 Numberofentriesbyspecies <- iris_species %>%   
   summarise(Species_entries = n())
 
-print(Numberofentriesbyspecies)
+kable(Numberofentriesbyspecies)
 
 
 
@@ -65,10 +68,11 @@ __2.d__ Print out the average sepal's and petal's length and width for each spec
 
 ```{r, message=FALSE}
 
-tibble.iris %>%
+Average <- tibble.iris %>%
   group_by(Species) %>%
   summarize(Sepal.Length.mean = mean(Sepal.Length), Petal.Length.mean = mean(Petal.Length), Sepal.Width.mean = mean(Sepal.Width), Petal.Width.mean = mean(Petal.Width))
 
+kable(Average)
 
 
 
@@ -79,7 +83,14 @@ __2.e__ Modify `iris_species` by adding a new column of standardized petal's len
 
 ```{r, message=FALSE}
 
-### your code goes here
+#Not clear if we have to standardize by species or on the whole data set. we will do it by species becuase it's asked to use iries_species
+
+std_petal.lenght<-iris_species %>% mutate(STD_Petal.Lenght = (Petal.Length-mean(Petal.Length))/sd(Petal.Length)) %>%
+  summarise(max = max(STD_Petal.Lenght))
+
+kable(std_petal.lenght)
+
+
 
 ```
 
@@ -88,7 +99,6 @@ __2.f__ Using the original `iris` tibble visualize the relation between petal's 
 ```{r, message = FALSE}
 
 ### your code goes here
-
 ```
 
 __2.g__ Modify previous plot by using different colors for each species only for the scatter chart and not for the regression line.
