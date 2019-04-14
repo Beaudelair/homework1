@@ -98,13 +98,28 @@ __2.f__ Using the original `iris` tibble visualize the relation between petal's 
 
 ```{r, message = FALSE}
 
-### your code goes here
+
+ggplot(data=tibble.iris, aes(x=Petal.Length , y=Petal.Width)) +
+  stat_smooth(method = "lm", se = FALSE) +
+  geom_point(size=2, color="#690000") +
+  ggtitle("Petal.Length vs Petal.Width") +
+  labs(x="Petal.Length" , y="Petal.Width") 
+  
+
+
 ```
 
 __2.g__ Modify previous plot by using different colors for each species only for the scatter chart and not for the regression line.
 
 ```{r, message = FALSE}
 
-### your code goes here
+ggplot(data=tibble.iris, aes(x=Petal.Length , y=Petal.Width, color = Species)) +
+  geom_point(size=2) +
+  ggtitle("Petal.Length vs Petal.Width") +
+  labs(x="Petal.Length" , y="Petal.Width")+
+  geom_smooth(method=lm, se=FALSE, fullrange=TRUE , color="black")
+
+
+
 
 ```
