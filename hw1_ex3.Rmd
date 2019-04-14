@@ -7,7 +7,9 @@ __3.a__ Save the [data file](https://raw.githubusercontent.com/tvatter/dsfba_201
 
 ```{r, message = FALSE}
 
-### your code goes here
+house_prices <-as_tibble(read_csv("data/house_prices.csv"))
+kable(head(house_prices))
+
 
 ```
 
@@ -16,7 +18,12 @@ Modify `house_prices` to have only these four columns, as well as transform `Lot
 
 ```{r, message = FALSE}
 
-### your code goes here
+house_prices <- house_prices %>% 
+  select(LotArea, KitchenQual,LotShape,SalePrice) %>%
+  mutate(LotArea = (LotArea/10.764))
+
+kable(head(house_prices))
+
 
 ```
 
@@ -24,7 +31,10 @@ __3.c__ For how many lots have the sale price was greater than its mean value?
 
 ```{r, message = FALSE}
 
-### your code goes here
+NbrHousewithHigherthanaveragePrice <-house_prices %>% filter(SalePrice>mean(SalePrice)) %>% summarise(Nbr_of_house=n())
+
+kable(head(NbrHouseWithHigherThanAveragePrice))
+
 
 ```
 
@@ -41,7 +51,13 @@ __3.d__ Display the average sale price for each kitchen quality level.
 
 ```{r, message = FALSE}
 
-### your code goes here
+MeanPrice <-house_prices %>%  
+  mutate(KitchenQual = recode(KitchenQual, Ex = "Excellent",
+         Gd = "Good", TA = "Typical/Average",Fa = "Fair"))   %>% 
+  group_by(KitchenQual) %>%
+  summarise(MeanPrice=mean(SalePrice)) 
+
+kable(MeanPrice)
 
 ```
 
@@ -49,7 +65,13 @@ __3.e__ Display ten randomly selected observations from the dataset. What happen
 
 ```{r, message = FALSE}
 
-### your code goes here
+kable(sample_n(house_prices, size=10))
+
+#It's never the same data so to be sure to have the same data we ccan set a seed such as : 
+
+set.seed(2)
+kable(sample_n(house_prices, size=10))
+
 
 ```
 
