@@ -6,14 +6,40 @@ __2.a__ Load the dataset `iris` and convert it into `tibble`. How many columns d
 
 ```{r, message=FALSE}
 
-### your code goes here
+data(iris)
+
+tibble.iris <- as_tibble(iris)
+
+#number of columns
+ncol(tibble.iris)
+
+#datatype of columns
+
+class(tibble.iris$Sepal.Length)
+class(tibble.iris$Sepal.Width)
+class(tibble.iris$Petal.Length)
+class(tibble.iris$Petal.Width)
+class(tibble.iris$Species)
+
+
+
+
+
+
+
 ```
 
 __2.b__ Print out only species and its length of a sepal in ascending order. Print out same columns in using descending order of sepal length.
 
 ```{r, message = FALSE}
 
-### your code goes here
+tibble.iris %>% 
+  arrange(desc(Sepal.Length)) %>% 
+  select(Sepal.Length, Species)
+
+tibble.iris %>% 
+  arrange(Sepal.Length) %>% 
+  select(Sepal.Length, Species)
 
 ```
 
@@ -21,7 +47,17 @@ __2.c__ Create a new object `iris_species` and assign to it the `iris` tibble gr
 
 ```{r, message=FALSE}
 
-### your code goes here
+
+iris_species <- tibble.iris %>% 
+  group_by(Species)
+
+Numberofentriesbyspecies <- iris_species %>%   
+  summarise(Species_entries = n())
+
+print(Numberofentriesbyspecies)
+
+
+
 
 ```
 
@@ -29,7 +65,13 @@ __2.d__ Print out the average sepal's and petal's length and width for each spec
 
 ```{r, message=FALSE}
 
-### your code goes here
+tibble.iris %>%
+  group_by(Species) %>%
+  summarize(Sepal.Length.mean = mean(Sepal.Length), Petal.Length.mean = mean(Petal.Length), Sepal.Width.mean = mean(Sepal.Width), Petal.Width.mean = mean(Petal.Width))
+
+
+
+
 
 ```
 
