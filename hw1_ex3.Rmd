@@ -108,6 +108,8 @@ __3.h__ Draw a scatter chart to investigate the dependence between `LotArea` and
 
 ```{r, message = FALSE}
 
+ggplot(data=house_prices, aes(x=LotArea , y=SalePrice, color = KitchenQual, shape= LotShape))+
+  geom_point(size=1)
 
 
 ```
