@@ -79,8 +79,9 @@ __3.f__ Print out the minimum price of observations for which shape is regular (
 
 ```{r, message = FALSE}
 
-### your code goes here
+Filter <- house_prices %>%  filter(LotShape=="Reg", KitchenQual== "Ex")
 
+kable(head(Filter))
   
 ```
 
@@ -88,7 +89,18 @@ __3.g__ Produce boxplots with kitchen quality as the x-axis and the price as the
 
 ```{r, message = FALSE}
 
-### your code goes here
+house_prices_renames <-house_prices %>%  
+  mutate(KitchenQual = recode(KitchenQual, Ex = "Excellent",
+         Gd = "Good", TA = "Typical/Average",Fa = "Fair"))
+
+house_prices_renames$KitchenQual<-factor(house_prices_renames$KitchenQual, levels=c("Excellent", "Good", "Typical/Average","Fair"))
+
+
+
+ggplot(data = house_prices_renames, mapping = aes(x = KitchenQual, y = SalePrice)) +
+  geom_boxplot()
+
+#We can notice that higher is the kitchen quality higher is the is the sale price on average  
 
 ```
 
@@ -96,7 +108,6 @@ __3.h__ Draw a scatter chart to investigate the dependence between `LotArea` and
 
 ```{r, message = FALSE}
 
-### your code goes here
 
 
 ```
