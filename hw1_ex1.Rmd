@@ -12,7 +12,9 @@ install.packages("knitr")
 __1.b__ Load the `tidyverse`, `knitr`, and set the precision to 2 digits.
 
 ```{r, message=FALSE}
+library(tidyverse)
+library(knitr)
 
-### your code goes here
+options(digits=2)
 
 ```
