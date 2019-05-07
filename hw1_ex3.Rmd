@@ -6,7 +6,7 @@ The dataset contains 81 columns describing (almost) every aspect of residential 
 __3.a__ Save the [data file](https://raw.githubusercontent.com/tvatter/dsfba_2019/homework/data/house_prices.csv) in `data` folder of your project. Load the dataset into the global environment by using function `read_csv` and assign it to variable `house_prices`. Make sure that the class of `house_prices` is a tibble.
 
 ```{r, message = FALSE}
-
+#downloaded from kaggle
 house_prices <-as_tibble(read_csv("data/house_prices.csv"))
 kable(head(house_prices))
 
@@ -33,7 +33,7 @@ __3.c__ For how many lots have the sale price was greater than its mean value?
 
 NbrHousewithHigherthanaveragePrice <-house_prices %>% filter(SalePrice>mean(SalePrice)) %>% summarise(Nbr_of_house=n())
 
-kable(head(NbrHouseWithHigherThanAveragePrice))
+kable(head(NbrHousewithHigherthanaveragePrice))
 
 
 ```
@@ -79,7 +79,8 @@ __3.f__ Print out the minimum price of observations for which shape is regular (
 
 ```{r, message = FALSE}
 
-Filter <- house_prices %>%  filter(LotShape=="Reg", KitchenQual== "Ex")
+Filter <- house_prices %>%  filter(LotShape=="Reg", KitchenQual== "Ex")  %>%  
+  summarise("Minimum price of houses with regular shape and high quality kitchen" = min(SalePrice))
 
 kable(head(Filter))
   
@@ -100,7 +101,7 @@ house_prices_renames$KitchenQual<-factor(house_prices_renames$KitchenQual, level
 ggplot(data = house_prices_renames, mapping = aes(x = KitchenQual, y = SalePrice)) +
   geom_boxplot()
 
-#We can notice that higher is the kitchen quality higher is the is the sale price on average  
+#We can notice that higher is the kitchen quality higher is the sale price on average  
 
 ```
 

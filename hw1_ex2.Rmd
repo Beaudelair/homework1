@@ -29,21 +29,18 @@ kable(column_class)
 __2.b__ Print out only species and its length of a sepal in ascending order. Print out same columns in using descending order of sepal length.
 
 ```{r, message = FALSE}
-
-S_L_Descending<-tibble.iris %>% 
-  arrange(desc(Sepal.Length)) %>% 
-  select(Sepal.Length, Species)
-
-kable(head(S_L_Descending), align= 'l')
-
-
-
 S_L_Ascending <- tibble.iris %>% 
   arrange(Sepal.Length) %>% 
   select(Sepal.Length, Species)
 
 kable(head(S_L_Ascending), align= 'l')
 
+
+S_L_Descending<-tibble.iris %>% 
+  arrange(desc(Sepal.Length)) %>% 
+  select(Sepal.Length, Species)
+
+kable(head(S_L_Descending), align= 'l')
 ```
 
 __2.c__ Create a new object `iris_species` and assign to it the `iris` tibble grouped by the type of `Species`. How many entries does each `Species` have?
@@ -74,6 +71,8 @@ Average <- tibble.iris %>%
 
 kable(Average)
 
+#Setosa are  in average the smallest flowers, followed by versicolor, whereas virginica is the biggest species
+
 
 
 
@@ -83,14 +82,12 @@ __2.e__ Modify `iris_species` by adding a new column of standardized petal's len
 
 ```{r, message=FALSE}
 
-#Not clear if we have to standardize by species or on the whole data set. we will do it by species becuase it's asked to use iries_species
+#Not clear if we have to standardize by species or on the whole data set. we will do it by species because it's asked to use iries_species
 
 std_petal.lenght<-iris_species %>% mutate(STD_Petal.Lenght = (Petal.Length-mean(Petal.Length))/sd(Petal.Length)) %>%
   summarise(max = max(STD_Petal.Lenght))
 
 kable(std_petal.lenght)
-
-
 
 ```
 
